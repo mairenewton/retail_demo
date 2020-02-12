@@ -1,6 +1,6 @@
 view: products {
   label: "Products 📦"
-  sql_table_name: retail.products ;;
+  sql_table_name: retail_demo.products ;;
   drill_fields: [id]
 
   dimension: id {

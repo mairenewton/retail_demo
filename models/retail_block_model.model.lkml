@@ -1,7 +1,8 @@
 connection: "lookerdata_bq"
+label: "3) Retail"
 
-include: "../views/*.view.lkml"                       # include all views in this project
-# include: "*.dashboard.lookml"   # include a LookML dashboard called my_dashboard
+include: "/views/**/*.view" # include all the views
+include: "/dashboards/*.dashboard.lookml" # include all the dashboards
 
 datagroup: daily {
   sql_trigger: SELECT CURRENT_DATE() ;;

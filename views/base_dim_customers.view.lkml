@@ -1,5 +1,5 @@
 view: customers {
-  sql_table_name: retail.customers ;;
+  sql_table_name: retail_demo.customers ;;
   drill_fields: [id]
 
   dimension: id {

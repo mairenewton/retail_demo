@@ -1,5 +1,5 @@
 view: events {
-  sql_table_name: retail.events ;;
+  sql_table_name: retail_demo.events ;;
   drill_fields: [id]
 
   dimension: id {

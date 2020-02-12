@@ -1,5 +1,5 @@
 view: channels {
-  sql_table_name: retail.channels ;;
+  sql_table_name: retail_demo.channels ;;
 
   dimension: id {
     type: number
