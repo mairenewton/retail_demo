@@ -1,5 +1,5 @@
-view: customers {
-  sql_table_name: retail.customers ;;
+view: events {
+  sql_table_name: retail.events ;;
   drill_fields: [id]
 
   dimension: id {
@@ -8,9 +8,9 @@ view: customers {
     sql: ${TABLE}.ID ;;
   }
 
-  dimension: age {
+  dimension: browser {
     type: string
-    sql: ${TABLE}.AGE ;;
+    sql: ${TABLE}.BROWSER ;;
   }
 
   dimension: city {
@@ -24,7 +24,7 @@ view: customers {
     sql: ${TABLE}.COUNTRY ;;
   }
 
-  dimension_group: registered {
+  dimension_group: created {
     type: time
     timeframes: [
       raw,
@@ -38,24 +38,14 @@ view: customers {
     sql: ${TABLE}.CREATED_AT ;;
   }
 
-  dimension: email {
+  dimension: event_type {
     type: string
-    sql: ${TABLE}.EMAIL ;;
+    sql: ${TABLE}.EVENT_TYPE ;;
   }
 
-  dimension: first_name {
+  dimension: ip_address {
     type: string
-    sql: ${TABLE}.FIRST_NAME ;;
-  }
-
-  dimension: gender {
-    type: string
-    sql: ${TABLE}.GENDER ;;
-  }
-
-  dimension: last_name {
-    type: string
-    sql: ${TABLE}.LAST_NAME ;;
+    sql: ${TABLE}.IP_ADDRESS ;;
   }
 
   dimension: latitude {
@@ -68,6 +58,21 @@ view: customers {
     sql: ${TABLE}.LONGITUDE ;;
   }
 
+  dimension: os {
+    type: string
+    sql: ${TABLE}.OS ;;
+  }
+
+  dimension: sequence_number {
+    type: number
+    sql: ${TABLE}.SEQUENCE_NUMBER ;;
+  }
+
+  dimension: session_id {
+    type: string
+    sql: ${TABLE}.SESSION_ID ;;
+  }
+
   dimension: state {
     type: string
     sql: ${TABLE}.STATE ;;
@@ -78,8 +83,24 @@ view: customers {
     sql: ${TABLE}.TRAFFIC_SOURCE ;;
   }
 
-  dimension: postcode {
+  dimension: uri {
+    type: string
+    sql: ${TABLE}.URI ;;
+  }
+
+  dimension: user_id {
+    type: number
+    # hidden: yes
+    sql: ${TABLE}.USER_ID ;;
+  }
+
+  dimension: zip {
     type: zipcode
     sql: ${TABLE}.ZIP ;;
+  }
+
+  measure: count {
+    type: count
+    drill_fields: [id, users.last_name, users.first_name, users.id]
   }
 }
