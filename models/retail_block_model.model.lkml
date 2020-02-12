@@ -18,6 +18,7 @@ datagroup: monthly {
 }
 
 explore: transactions {
+  hidden: yes
   label: "Transaction Detail 🏷"
   always_filter: {
     filters: {
@@ -91,6 +92,7 @@ explore: transactions {
 }
 
 explore: stock_forecasting_explore_base {
+  hidden: yes
   label: "Stock Forecasting 🏭"
 
   always_filter: {
@@ -110,6 +112,7 @@ explore: stock_forecasting_explore_base {
 }
 
 explore: order_purchase_affinity {
+  hidden: yes
   label: "Item Affinity 🔗"
   view_label: "Item Affinity"
 
@@ -133,5 +136,6 @@ explore: order_purchase_affinity {
 }
 
 explore: customer_clustering_prediction {
+  hidden: yes
   label: "Customer Segments 👤"
 }
