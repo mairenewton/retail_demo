@@ -12,7 +12,7 @@ view: customers {
     type: string
     sql: ${TABLE}.address ;;
     link: {
-      url: "https://retaildemo.gw1.cloud.looker.com/dashboards-next/7?Address=%22{{value | encode_uri}}%22&Date%20Range={{ _filters['transactions.transaction_date']}}"
+      url: "https://demo.looker.com/dashboards-next/5541?Address=%22{{value | encode_uri}}%22&Date%20Range={{ _filters['transactions.transaction_date']}}"
       label: "Drill into this address"
       icon_url: "https://img.icons8.com/cotton/2x/worldwide-location.png"
     }
