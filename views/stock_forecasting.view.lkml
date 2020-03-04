@@ -41,6 +41,11 @@ view: stock_forecasting_explore_base {
   }
   dimension: product_name {
     sql: IFNULL(${product_name_for_join},${stock_forecasting_prediction.product_name}) ;;
+    link: {
+      label: "Drive attachments for {{rendered_value}}"
+      icon_url: "https://i.imgur.com/W4tVGrj.png"
+      url: "https://demo.looker.com/dashboards-next/5539?Focus%20Product={{value | encode_uri}}&Minimum%20Purchase%20Frequency="
+    }
   }
   dimension: product_name_for_join {
     hidden: yes
