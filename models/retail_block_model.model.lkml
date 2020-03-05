@@ -14,19 +14,6 @@ explore: transactions {
       value: "last 30 days"
     }
   }
-
-  sql_always_where: {% if transactions.date_comparison_filter._is_filtered %}
-    {% if transactions.comparison_type._parameter_value == 'year' %}
-    {% condition transactions.date_comparison_filter %} ${transaction_raw} {% endcondition %} OR (${transaction_raw} >= TIMESTAMP(DATE_ADD(CAST({% date_start transactions.date_comparison_filter %} AS DATE),INTERVAL -1 YEAR)) AND ${transaction_raw} <= TIMESTAMP(DATE_ADD(CAST({% date_end transactions.date_comparison_filter %} AS DATE),INTERVAL -364 DAY)))
-    {% elsif transactions.comparison_type._parameter_value == 'week' %}
-    {% condition transactions.date_comparison_filter %} ${transaction_raw} {% endcondition %} OR (${transaction_raw} >= TIMESTAMP(DATE_ADD(CAST({% date_start transactions.date_comparison_filter %} AS DATE),INTERVAL -1 WEEK)) AND ${transaction_raw} <= TIMESTAMP(DATE_ADD(CAST({% date_end transactions.date_comparison_filter %} AS DATE),INTERVAL -6 DAY)))
-    {% else %}
-    1=1
-    {% endif %}
-  {% else %}
-  1=1
-  {% endif %};;
-
   join: transactions__line_items {
     relationship: one_to_many
     sql: LEFT JOIN UNNEST(${transactions.line_items}) transactions__line_items ;;
@@ -35,6 +22,12 @@ explore: transactions {
   join: customers {
     relationship: many_to_one
     sql_on: ${transactions.customer_id} = ${customers.id} ;;
+  }
+
+  join: customer_facts {
+    relationship: many_to_one
+    view_label: "Customers"
+    sql_on: ${transactions.customer_id} = ${customer_facts.customer_id} ;;
   }
 
   join: products {
@@ -55,12 +48,6 @@ explore: transactions {
     relationship: many_to_one
   }
 
-  join: customer_facts {
-    relationship: many_to_one
-    view_label: "Customers"
-    sql_on: ${transactions.customer_id} = ${customer_facts.customer_id} ;;
-  }
-
   join: customer_transaction_sequence {
     relationship: many_to_one
     sql_on: ${transactions.customer_id} = ${customer_transaction_sequence.customer_id}
@@ -79,6 +66,18 @@ explore: transactions {
     relationship: many_to_one
     sql_on: ${transactions.customer_id} = ${customer_clustering_prediction.customer_id} ;;
   }
+
+  sql_always_where: {% if transactions.date_comparison_filter._is_filtered %}
+    {% if transactions.comparison_type._parameter_value == 'year' %}
+    {% condition transactions.date_comparison_filter %} ${transaction_raw} {% endcondition %} OR (${transaction_raw} >= TIMESTAMP(DATE_ADD(CAST({% date_start transactions.date_comparison_filter %} AS DATE),INTERVAL -1 YEAR)) AND ${transaction_raw} <= TIMESTAMP(DATE_ADD(CAST({% date_end transactions.date_comparison_filter %} AS DATE),INTERVAL -364 DAY)))
+    {% elsif transactions.comparison_type._parameter_value == 'week' %}
+    {% condition transactions.date_comparison_filter %} ${transaction_raw} {% endcondition %} OR (${transaction_raw} >= TIMESTAMP(DATE_ADD(CAST({% date_start transactions.date_comparison_filter %} AS DATE),INTERVAL -1 WEEK)) AND ${transaction_raw} <= TIMESTAMP(DATE_ADD(CAST({% date_end transactions.date_comparison_filter %} AS DATE),INTERVAL -6 DAY)))
+    {% else %}
+    1=1
+    {% endif %}
+  {% else %}
+  1=1
+  {% endif %};;
 }
 
 explore: stock_forecasting_explore_base {
