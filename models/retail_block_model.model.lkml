@@ -4,18 +4,7 @@ label: "3) Retail"
 include: "/views/**/*.view" # include all the views
 # include: "/dashboards/*.dashboard.lookml" # include all the dashboards
 
-datagroup: daily {
-  sql_trigger: SELECT CURRENT_DATE() ;;
-  max_cache_age: "24 hours"
-}
 
-datagroup: weekly {
-  sql_trigger: SELECT EXTRACT(WEEK FROM CURRENT_DATE()) ;;
-}
-
-datagroup: monthly {
-  sql_trigger: SELECT EXTRACT(MONTH FROM CURRENT_DATE()) ;;
-}
 
 explore: transactions {
   label: "Transaction Detail 🏷"
@@ -61,12 +50,14 @@ explore: transactions {
 
   join: channels {
     type: left_outer
+    view_label: "Transactions"
     sql_on: ${channels.id} = ${transactions.channel_id} ;;
     relationship: many_to_one
   }
 
   join: customer_facts {
     relationship: many_to_one
+    view_label: "Customers"
     sql_on: ${transactions.customer_id} = ${customer_facts.customer_id} ;;
   }
 
@@ -84,7 +75,7 @@ explore: transactions {
 
   join: customer_clustering_prediction {
     fields: [customer_clustering_prediction.centroid_id,customer_clustering_prediction.customer_segment]
-    view_label: "Customer Facts"
+    view_label: "Customers"
     relationship: many_to_one
     sql_on: ${transactions.customer_id} = ${customer_clustering_prediction.customer_id} ;;
   }
@@ -134,4 +125,17 @@ explore: order_purchase_affinity {
 
 explore: customer_clustering_prediction {
   label: "Customer Segments 👤"
+}
+
+datagroup: daily {
+  sql_trigger: SELECT CURRENT_DATE() ;;
+  max_cache_age: "24 hours"
+}
+
+datagroup: weekly {
+  sql_trigger: SELECT EXTRACT(WEEK FROM CURRENT_DATE()) ;;
+}
+
+datagroup: monthly {
+  sql_trigger: SELECT EXTRACT(MONTH FROM CURRENT_DATE()) ;;
 }
