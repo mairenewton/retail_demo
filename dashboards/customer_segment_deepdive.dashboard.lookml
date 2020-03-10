@@ -310,7 +310,7 @@
     col: 18
     width: 6
     height: 2
-  - name: ''
+  - name: 'na'
     type: text
     title_text: ''
     subtitle_text: ''

@@ -655,7 +655,7 @@
     col: 0
     width: 19
     height: 2
-  - name: <img src="https://i.imgur.com/DwmnjA2.png" height="75">
+  - name: 'na6'
     type: text
     title_text: <img src="https://i.imgur.com/DwmnjA2.png" height="75">
     subtitle_text: ''

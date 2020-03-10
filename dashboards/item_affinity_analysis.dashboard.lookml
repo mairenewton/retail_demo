@@ -338,7 +338,7 @@
     col: 3
     width: 10
     height: 2
-  - name: Product Segmentation
+  - name: Product Segmentation2
     type: text
     title_text: Product Segmentation
     row: 0
@@ -353,7 +353,7 @@
     col: 0
     width: 24
     height: 2
-  - name: ''
+  - name: 'na2'
     type: text
     subtitle_text: Finally, what are my least popular items in that timeframe?
     body_text: ''
@@ -529,7 +529,7 @@
     col: 13
     width: 11
     height: 2
-  - name: ''
+  - name: 'na3'
     type: text
     body_text: |-
       **Recommended Action 👉**
@@ -538,7 +538,7 @@
     col: 0
     width: 3
     height: 8
-  - name: ''
+  - name: 'na4'
     type: text
     body_text: |-
       **Recommended Action 👉**
@@ -549,7 +549,7 @@
     col: 0
     width: 3
     height: 12
-  - name: ''
+  - name: 'na5'
     type: text
     body_text: |-
       **Recommended Action 👉**
