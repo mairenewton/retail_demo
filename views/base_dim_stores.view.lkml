@@ -14,11 +14,14 @@ view: stores {
 
   dimension: latitude {
     type: number
+    hidden: yes
     sql: ${TABLE}.LATITUDE ;;
+
   }
 
   dimension: longitude {
     type: number
+    hidden: yes
     sql: ${TABLE}.LONGITUDE ;;
   }
 
@@ -50,11 +53,13 @@ view: stores {
 
   dimension: state {
     type: string
+    group_label: "Store Info"
     sql: ${TABLE}.State ;;
   }
 
   dimension: sq_ft {
     type: string
+    group_label: "Store Info"
     sql: ${TABLE}.sq_ft ;;
   }
 
@@ -62,6 +67,7 @@ view: stores {
 
   dimension: location {
     type: location
+    group_label: "Store Info"
     sql_latitude: ${latitude} ;;
     sql_longitude: ${longitude} ;;
   }
@@ -91,11 +97,13 @@ view: stores {
 
   filter: store_for_comparison {
     type: string
+    group_label: "Store Comparison"
     suggest_dimension: stores.name
   }
 
   dimension: store_comparison_vs_stores_in_tier {
     type: string
+    group_label: "Store Comparison"
     sql: CASE
       WHEN {% condition store_for_comparison %} ${name} {% endcondition %} THEN CONCAT('1- ',${name})
       ELSE ${name}
@@ -104,6 +112,7 @@ view: stores {
 
   dimension: store_comparison_vs_stores_in_tier_with_weather {
     type: string
+    group_label: "Store Comparison"
     sql: CASE
       WHEN {% condition store_for_comparison %} ${name} {% endcondition %} THEN CONCAT('1- ',${name})
       ELSE ${name}
@@ -129,6 +138,7 @@ view: stores {
 
   dimension: store_comparison_vs_tier {
     type: string
+    group_label: "Store Comparison"
     sql: CASE
       WHEN {% condition store_for_comparison %} ${name} {% endcondition %} THEN CONCAT('1- ',${name})
       ELSE '2- Rest of Stores in Tier'

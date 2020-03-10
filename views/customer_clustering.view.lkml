@@ -2,6 +2,7 @@
 # include: "../models/retail_block_model.model.lkml"
 
 view: customer_clustering_input {
+  view_label: "Customers"
   derived_table: {
     explore_source: transactions {
       column: customer_id {}
@@ -81,6 +82,7 @@ view: customer_clustering_prediction {
 
   dimension: centroid_id {
     type: number
+    hidden: yes
     sql: ${TABLE}.CENTROID_ID ;;
   }
 

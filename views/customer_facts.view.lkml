@@ -1,4 +1,5 @@
 view: customer_facts {
+  view_label: "Customers"
   derived_table: {
     sql: SELECT
         customer_id,
@@ -21,42 +22,50 @@ view: customer_facts {
 
   dimension: customer_id {
     type: number
+    hidden: yes
     sql: ${TABLE}.customer_id ;;
   }
 
   dimension: customer_average_basket_size {
     type: number
+    group_label: "Customer Lifetime"
     sql: ${TABLE}.customer_average_basket_size ;;
   }
 
   dimension: customer_lifetime_gross_margin {
     type: number
+    group_label: "Customer Lifetime"
     sql: ${TABLE}.customer_lifetime_gross_margin ;;
   }
 
   dimension: customer_lifetime_sales {
     type: number
+    group_label: "Customer Lifetime"
     sql: ${TABLE}.customer_lifetime_sales ;;
   }
 
   dimension: customer_lifetime_transactions {
     type: number
+    group_label: "Customer Lifetime"
     sql: ${TABLE}.customer_lifetime_transactions ;;
   }
 
   dimension: customer_lifetime_quantity {
     type: number
+    group_label: "Customer Lifetime"
     sql: ${TABLE}.customer_lifetime_quantity ;;
   }
 
   dimension_group: customer_first_purchase {
     type: time
+    group_label: "Customer Lifetime"
     timeframes: [raw,date,week,month]
     sql: ${TABLE}.customer_first_purchase_date ;;
   }
 
   dimension: customer_spend_trend_past_year {
     type: number
+    group_label: "Customer Lifetime"
     value_format_name: percent_1
     sql: ${TABLE}.customer_spend_trend_past_year ;;
   }

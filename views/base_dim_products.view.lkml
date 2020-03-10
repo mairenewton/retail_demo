@@ -6,6 +6,7 @@ view: products {
   dimension: id {
     primary_key: yes
     type: number
+    hidden: yes
     sql: ${TABLE}.ID ;;
   }
 
@@ -43,7 +44,7 @@ view: products {
   }
 
   dimension: department {
-    label: "Gender"
+    label: "Target Gender"
     type: string
     sql: ${TABLE}.DEPARTMENT ;;
   }
