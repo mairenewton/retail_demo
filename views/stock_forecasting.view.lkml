@@ -31,6 +31,7 @@ view: stock_forecasting_explore_base {
     sql: TIMESTAMP(CAST(${TABLE}.transaction_week AS DATE)) ;;
   }
   dimension: transaction_week_of_year {
+    group_label: "Transaction Date"
     type: number
     sql: IFNULL(${transaction_week_of_year_for_join},${stock_forecasting_prediction.transaction_week_of_year}) ;;
   }
