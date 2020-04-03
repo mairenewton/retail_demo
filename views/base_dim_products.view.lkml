@@ -6,6 +6,7 @@ view: products {
   dimension: id {
     primary_key: yes
     type: number
+    hidden: yes
     sql: ${TABLE}.ID ;;
   }
 
@@ -22,12 +23,12 @@ view: products {
     link: {
       label: "{{value}} Item Dynamics"
       icon_url: "https://i.imgur.com/W4tVGrj.png"
-      url: "https://retaildemo.gw1.cloud.looker.com/dashboards-next/2?Focus%20Category={{value | encode_uri}}&Minimum%20Purchase%20Frequency="
+      url: "https://demo.looker.com/dashboards-next/5539?Focus%20Category={{value | encode_uri}}&Minimum%20Purchase%20Frequency="
     }
     action: {
       label: "Text/Call {{rendered_value}} Category Manager"
       icon_url: "https://cdn.iconscout.com/icon/free/png-256/twilio-282195.png"
-      url: "https://postb.in/1575118901593-5762349381111"
+      url: "https://looker-retail-demo-1.appspot.com/api/contactCategoryManager?category={{value | encode_uri}}"
       param: {
         name: "category"
         value: "{{value | encode_uri}}"
@@ -37,13 +38,13 @@ view: products {
         type: textarea
         label: "Message"
         required: yes
-        default: "Hi, can you please check out what's going on in {{rendered_value}}? https://retaildemo.gw1.cloud.looker.com/dashboards-next/2?Focus%20Category={{value | encode_uri}}&Minimum%20Purchase%20Frequency="
+        default: "Hi, can you please check out what's going on in {{rendered_value}}? https://demo.looker.com/dashboards-next/5539?Category={{value | encode_uri}}"
       }
     }
   }
 
   dimension: department {
-    label: "Gender"
+    label: "Target Gender"
     type: string
     sql: ${TABLE}.DEPARTMENT ;;
   }
@@ -55,7 +56,7 @@ view: products {
     link: {
       label: "Drive attachments for {{rendered_value}}"
       icon_url: "https://i.imgur.com/W4tVGrj.png"
-      url: "https://retaildemo.gw1.cloud.looker.com/dashboards-next/2?Focus%20Product={{value | encode_uri}}&Minimum%20Purchase%20Frequency="
+      url: "https://demo.looker.com/dashboards-next/5539?Focus%20Product={{value | encode_uri}}&Minimum%20Purchase%20Frequency="
     }
   }
 

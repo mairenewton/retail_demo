@@ -11,8 +11,9 @@ view: customers {
   dimension: address {
     type: string
     sql: ${TABLE}.address ;;
+    group_label: "Address Info"
     link: {
-      url: "https://retaildemo.gw1.cloud.looker.com/dashboards-next/7?Address=%22{{value | encode_uri}}%22&Date%20Range={{ _filters['transactions.transaction_date']}}"
+      url: "https://demo.looker.com/dashboards-next/5541?Address=%22{{value | encode_uri}}%22&Date%20Range={{ _filters['transactions.transaction_date']}}"
       label: "Drill into this address"
       icon_url: "https://img.icons8.com/cotton/2x/worldwide-location.png"
     }
@@ -20,6 +21,7 @@ view: customers {
 
   dimension: address_street_view {
     type: string
+    group_label: "Address Info"
     sql: ${address} ;;
     html: <img src="https://maps.googleapis.com/maps/api/streetview?size=700x400&location={{value | encode_uri}}&fov=120&key=AIzaSyCpNqLNfBtd1iw0UdeKwv9kORpCFRhNG4o" ;;
   }
@@ -31,11 +33,13 @@ view: customers {
 
   dimension: city {
     type: string
+    group_label: "Address Info"
     sql: ${TABLE}.CITY ;;
   }
 
   dimension: country {
     type: string
+    group_label: "Address Info"
     map_layer_name: countries
     sql: ${TABLE}.COUNTRY ;;
   }
@@ -56,11 +60,13 @@ view: customers {
 
   dimension: email {
     type: string
+    group_label: "Address Info"
     sql: ${TABLE}.EMAIL ;;
   }
 
   dimension: first_name {
     type: string
+    hidden: yes
     sql: ${TABLE}.FIRST_NAME ;;
   }
 
@@ -71,7 +77,13 @@ view: customers {
 
   dimension: last_name {
     type: string
+    hidden: yes
     sql: ${TABLE}.LAST_NAME ;;
+  }
+
+  dimension: name {
+    type: string
+    sql: CONCAT(${first_name}, " ", ${last_name}) ;;
   }
 
   dimension: latitude {
@@ -88,12 +100,14 @@ view: customers {
 
   dimension: location {
     type: location
+    group_label: "Address Info"
     sql_latitude: ${latitude} ;;
     sql_longitude: ${longitude} ;;
   }
 
   dimension: state {
     type: string
+    group_label: "Address Info"
     sql: ${TABLE}.STATE ;;
   }
 
@@ -104,6 +118,7 @@ view: customers {
 
   dimension: postcode {
     type: zipcode
+    group_label: "Address Info"
     sql: ${TABLE}.ZIP ;;
   }
 
@@ -116,6 +131,7 @@ view: customers {
 
   dimension: address_comparison {
     type: string
+    group_label: "Address Info"
     sql: CASE
       WHEN {% condition address_comparison_filter %} ${address} {% endcondition %} THEN ${address}
       ELSE 'vs Average'

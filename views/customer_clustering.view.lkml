@@ -2,6 +2,7 @@
 # include: "../models/retail_block_model.model.lkml"
 
 view: customer_clustering_input {
+  view_label: "Customers"
   derived_table: {
     explore_source: transactions {
       column: customer_id {}
@@ -81,6 +82,7 @@ view: customer_clustering_prediction {
 
   dimension: centroid_id {
     type: number
+    hidden: yes
     sql: ${TABLE}.CENTROID_ID ;;
   }
 
@@ -93,7 +95,7 @@ view: customer_clustering_prediction {
     sql: ${TABLE}.customer_segment ;;
     order_by_field: centroid_id
     link: {
-      url: "https://retaildemo.gw1.cloud.looker.com/dashboards-next/4?Customer%20Segment={{value | encode_uri}}&Date%20Range={{ _filters['transactions.date_comparison_filter'] | url_encode }}"
+      url: "https://demo.looker.com/dashboards-next/5540?Customer%20Segment={{value | encode_uri}}&Date%20Range={{ _filters['transactions.date_comparison_filter'] | url_encode }}"
       label: "Drill into {{rendered_value}}"
     }
   }

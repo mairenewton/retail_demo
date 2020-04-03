@@ -14,11 +14,14 @@ view: stores {
 
   dimension: latitude {
     type: number
+    hidden: yes
     sql: ${TABLE}.LATITUDE ;;
+
   }
 
   dimension: longitude {
     type: number
+    hidden: yes
     sql: ${TABLE}.LONGITUDE ;;
   }
 
@@ -27,7 +30,7 @@ view: stores {
     type: string
     sql: ${TABLE}.NAME ;;
     link: {
-      url: "https://retaildemo.gw1.cloud.looker.com/dashboards-next/3?Date={{ _filters['transactions.date_comparison_filter'] | url_encode }}&Store={{value | encode_uri}}"
+      url: "https://demo.looker.com/dashboards-next/5535?Date={{ _filters['transactions.date_comparison_filter'] | url_encode }}&Store={{value | encode_uri}}"
       label: "Drill down into {{rendered_value}}"
     }
     action: {
@@ -43,18 +46,20 @@ view: stores {
         type: textarea
         label: "Message"
         required: yes
-        default: "Hi, can you please check out what's going on in {{rendered_value}}? https://retaildemo.gw1.cloud.looker.com/dashboards-next/3?Store={{value | encode_uri}}"
+        default: "Hi, can you please check out what's going on in {{rendered_value}}? https://demo.looker.com/dashboards-next/5535?Store={{value | encode_uri}}"
       }
     }
   }
 
   dimension: state {
     type: string
+    group_label: "Store Info"
     sql: ${TABLE}.State ;;
   }
 
   dimension: sq_ft {
     type: string
+    group_label: "Store Info"
     sql: ${TABLE}.sq_ft ;;
   }
 
@@ -62,6 +67,7 @@ view: stores {
 
   dimension: location {
     type: location
+    group_label: "Store Info"
     sql_latitude: ${latitude} ;;
     sql_longitude: ${longitude} ;;
   }
@@ -91,11 +97,13 @@ view: stores {
 
   filter: store_for_comparison {
     type: string
+    group_label: "Store Comparison"
     suggest_dimension: stores.name
   }
 
   dimension: store_comparison_vs_stores_in_tier {
     type: string
+    group_label: "Store Comparison"
     sql: CASE
       WHEN {% condition store_for_comparison %} ${name} {% endcondition %} THEN CONCAT('1- ',${name})
       ELSE ${name}
@@ -104,6 +112,7 @@ view: stores {
 
   dimension: store_comparison_vs_stores_in_tier_with_weather {
     type: string
+    group_label: "Store Comparison"
     sql: CASE
       WHEN {% condition store_for_comparison %} ${name} {% endcondition %} THEN CONCAT('1- ',${name})
       ELSE ${name}
@@ -112,7 +121,7 @@ view: stores {
     action: {
       label: "Text/Call {{rendered_value}} Store Manager"
       icon_url: "https://cdn.iconscout.com/icon/free/png-256/twilio-282195.png"
-      url: "https://postb.in/1575118901593-5762349381111"
+      url: "https://looker-retail-demo-1.appspot.com/api/contactStoreManager?store={{value | encode_uri}}"
       param: {
         name: "store"
         value: "{{value | encode_uri}}"
@@ -122,13 +131,14 @@ view: stores {
         type: textarea
         label: "Message"
         required: yes
-        default: "Hi, can you please check out what's going on in {{rendered_value}}? https://retaildemo.gw1.cloud.looker.com/dashboards-next/3?Store={{value | encode_uri}}"
+        default: "Hi, can you please check out what's going on in {{rendered_value}}? https://demo.looker.com/dashboards-next/5535?Store={{value | encode_uri}}"
       }
     }
   }
 
   dimension: store_comparison_vs_tier {
     type: string
+    group_label: "Store Comparison"
     sql: CASE
       WHEN {% condition store_for_comparison %} ${name} {% endcondition %} THEN CONCAT('1- ',${name})
       ELSE '2- Rest of Stores in Tier'

@@ -1,24 +1,12 @@
 connection: "lookerdata"
-label: "3) Retail"
+label: "4) Retail"
 
 include: "/views/**/*.view" # include all the views
-include: "/dashboards/*.dashboard.lookml" # include all the dashboards
+# include: "/dashboards/*.dashboard.lookml" # include all the dashboards
 
-datagroup: daily {
-  sql_trigger: SELECT CURRENT_DATE() ;;
-  max_cache_age: "24 hours"
-}
 
-datagroup: weekly {
-  sql_trigger: SELECT EXTRACT(WEEK FROM CURRENT_DATE()) ;;
-}
-
-datagroup: monthly {
-  sql_trigger: SELECT EXTRACT(MONTH FROM CURRENT_DATE()) ;;
-}
 
 explore: transactions {
-  hidden: yes
   label: "Transaction Detail 🏷"
   always_filter: {
     filters: {
@@ -26,19 +14,6 @@ explore: transactions {
       value: "last 30 days"
     }
   }
-
-  sql_always_where: {% if transactions.date_comparison_filter._is_filtered %}
-    {% if transactions.comparison_type._parameter_value == 'year' %}
-    {% condition transactions.date_comparison_filter %} ${transaction_raw} {% endcondition %} OR (${transaction_raw} >= TIMESTAMP(DATE_ADD(CAST({% date_start transactions.date_comparison_filter %} AS DATE),INTERVAL -1 YEAR)) AND ${transaction_raw} <= TIMESTAMP(DATE_ADD(CAST({% date_end transactions.date_comparison_filter %} AS DATE),INTERVAL -364 DAY)))
-    {% elsif transactions.comparison_type._parameter_value == 'week' %}
-    {% condition transactions.date_comparison_filter %} ${transaction_raw} {% endcondition %} OR (${transaction_raw} >= TIMESTAMP(DATE_ADD(CAST({% date_start transactions.date_comparison_filter %} AS DATE),INTERVAL -1 WEEK)) AND ${transaction_raw} <= TIMESTAMP(DATE_ADD(CAST({% date_end transactions.date_comparison_filter %} AS DATE),INTERVAL -6 DAY)))
-    {% else %}
-    1=1
-    {% endif %}
-  {% else %}
-  1=1
-  {% endif %};;
-
   join: transactions__line_items {
     relationship: one_to_many
     sql: LEFT JOIN UNNEST(${transactions.line_items}) transactions__line_items ;;
@@ -47,6 +22,12 @@ explore: transactions {
   join: customers {
     relationship: many_to_one
     sql_on: ${transactions.customer_id} = ${customers.id} ;;
+  }
+
+  join: customer_facts {
+    relationship: many_to_one
+    view_label: "Customers"
+    sql_on: ${transactions.customer_id} = ${customer_facts.customer_id} ;;
   }
 
   join: products {
@@ -62,13 +43,9 @@ explore: transactions {
 
   join: channels {
     type: left_outer
+    view_label: "Transactions"
     sql_on: ${channels.id} = ${transactions.channel_id} ;;
     relationship: many_to_one
-  }
-
-  join: customer_facts {
-    relationship: many_to_one
-    sql_on: ${transactions.customer_id} = ${customer_facts.customer_id} ;;
   }
 
   join: customer_transaction_sequence {
@@ -80,19 +57,30 @@ explore: transactions {
   join: store_weather {
     relationship: many_to_one
     sql_on: ${transactions.transaction_date} = ${store_weather.weather_date}
-    AND ${transactions.store_id} = ${store_weather.store_id};;
+      AND ${transactions.store_id} = ${store_weather.store_id};;
   }
 
   join: customer_clustering_prediction {
     fields: [customer_clustering_prediction.centroid_id,customer_clustering_prediction.customer_segment]
-    view_label: "Customer Facts"
+    view_label: "Customers"
     relationship: many_to_one
     sql_on: ${transactions.customer_id} = ${customer_clustering_prediction.customer_id} ;;
   }
+
+  sql_always_where: {% if transactions.date_comparison_filter._is_filtered %}
+    {% if transactions.comparison_type._parameter_value == 'year' %}
+    {% condition transactions.date_comparison_filter %} ${transaction_raw} {% endcondition %} OR (${transaction_raw} >= TIMESTAMP(DATE_ADD(CAST({% date_start transactions.date_comparison_filter %} AS DATE),INTERVAL -1 YEAR)) AND ${transaction_raw} <= TIMESTAMP(DATE_ADD(CAST({% date_end transactions.date_comparison_filter %} AS DATE),INTERVAL -364 DAY)))
+    {% elsif transactions.comparison_type._parameter_value == 'week' %}
+    {% condition transactions.date_comparison_filter %} ${transaction_raw} {% endcondition %} OR (${transaction_raw} >= TIMESTAMP(DATE_ADD(CAST({% date_start transactions.date_comparison_filter %} AS DATE),INTERVAL -1 WEEK)) AND ${transaction_raw} <= TIMESTAMP(DATE_ADD(CAST({% date_end transactions.date_comparison_filter %} AS DATE),INTERVAL -6 DAY)))
+    {% else %}
+    1=1
+    {% endif %}
+  {% else %}
+  1=1
+  {% endif %};;
 }
 
 explore: stock_forecasting_explore_base {
-  hidden: yes
   label: "Stock Forecasting 🏭"
 
   always_filter: {
@@ -112,7 +100,6 @@ explore: stock_forecasting_explore_base {
 }
 
 explore: order_purchase_affinity {
-  hidden: yes
   label: "Item Affinity 🔗"
   view_label: "Item Affinity"
 
@@ -136,6 +123,18 @@ explore: order_purchase_affinity {
 }
 
 explore: customer_clustering_prediction {
-  hidden: yes
   label: "Customer Segments 👤"
+}
+
+datagroup: daily {
+  sql_trigger: SELECT CURRENT_DATE() ;;
+  max_cache_age: "24 hours"
+}
+
+datagroup: weekly {
+  sql_trigger: SELECT EXTRACT(WEEK FROM CURRENT_DATE()) ;;
+}
+
+datagroup: monthly {
+  sql_trigger: SELECT EXTRACT(MONTH FROM CURRENT_DATE()) ;;
 }

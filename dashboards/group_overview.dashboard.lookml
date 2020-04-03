@@ -157,7 +157,6 @@
     explore: transactions
     type: sunburst
     fields: [products.area, products.category, products.brand, products.name, transactions.number_of_transactions]
-    filters: {}
     sorts: [transactions.number_of_transactions desc]
     limit: 500
     column_limit: 50
@@ -176,7 +175,8 @@
     model: retail_block_model
     explore: transactions
     type: looker_map
-    fields: [stores.location, transactions__line_items.total_sales, transactions.number_of_transactions]
+    fields: [stores.location, transactions__line_items.total_sales, transactions.number_of_transactions,
+      stores.name]
     filters: {}
     sorts: [transactions.number_of_transactions desc]
     limit: 500
@@ -228,6 +228,54 @@
     sorts: [transactions__line_items.sales_change desc]
     limit: 500
     column_limit: 50
+    color_application:
+      collection_id: f14810d2-98d7-42df-82d0-bc185a074e42
+      custom:
+        id: 2cf23ac7-6136-e038-cb59-0b0d03864953
+        label: Custom
+        type: discrete
+        colors:
+        - "#5A30C2"
+        - "#4fd3f0"
+        - "#04b5cc"
+        - "#009688"
+        - "#4CAF50"
+        - "#8BC34A"
+        - "#CDDC39"
+        - "#FFEB3B"
+        - "#9E9E9E"
+        - "#607D8B"
+        - "#607D8B"
+      options:
+        steps: 5
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    limit_displayed_rows: false
+    legend_position: center
+    series_types: {}
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
     map_plot_mode: points
     heatmap_gridlines: false
     heatmap_gridlines_empty: false
@@ -247,7 +295,6 @@
     map_marker_radius_max: 20
     map_marker_proportional_scale_type: linear
     map_marker_color_mode: value
-    show_view_names: false
     show_legend: true
     map_value_colors: ["#aaa", "#5930c2"]
     quantize_map_value_colors: false
@@ -255,7 +302,6 @@
     color_range: ["#5A30C2", "#9d81e6", "#2D2442", "#42248F", "#1F1142"]
     color_by: root
     show_null_points: true
-    series_types: {}
     hidden_fields:
     listen:
       Date: transactions.date_comparison_filter
@@ -272,9 +318,59 @@
     filters:
       transactions.transaction_date: 2 years
       transactions.comparison_type: year
+      products.category: "-NULL"
     sorts: [transactions__line_items.sales_change desc]
     limit: 500
     column_limit: 50
+    color_application:
+      collection_id: f14810d2-98d7-42df-82d0-bc185a074e42
+      custom:
+        id: 91999ca4-f13f-8b66-db6b-db77995d1766
+        label: Custom
+        type: discrete
+        colors:
+        - "#5A30C2"
+        - "#4fd3f0"
+        - "#04b5cc"
+        - "#009688"
+        - "#4CAF50"
+        - "#8BC34A"
+        - "#CDDC39"
+        - "#FFEB3B"
+        - "#9E9E9E"
+        - "#607D8B"
+        - "#607D8B"
+      options:
+        steps: 5
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    limit_displayed_rows: false
+    legend_position: center
+    series_types: {}
+    point_style: none
+    series_colors: {}
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
     map_plot_mode: points
     heatmap_gridlines: false
     heatmap_gridlines_empty: false
@@ -294,7 +390,6 @@
     map_marker_radius_max: 20
     map_marker_proportional_scale_type: linear
     map_marker_color_mode: value
-    show_view_names: false
     show_legend: true
     map_value_colors: ["#aaa", "#5930c2"]
     quantize_map_value_colors: false
@@ -302,7 +397,6 @@
     color_range: ["#5A30C2", "#9d81e6", "#2D2442", "#42248F", "#1F1142"]
     color_by: root
     show_null_points: true
-    series_types: {}
     hidden_fields:
     listen:
       Date: transactions.date_comparison_filter
@@ -329,7 +423,7 @@
       segments?</font>
     body_text: |-
       **Recommended Action 👇**
-      Look for segments with low YoY performance, or with no spikes in retention, and drill into them to see possible actions to drive them back to our brand.
+      We've clustered our customer segments according to a ML algorithm. Look for segments with low YoY performance, or with no spikes in retention, and drill into them to see possible actions to drive them back to our brand.
     row: 30
     col: 0
     width: 24
@@ -346,7 +440,7 @@
       transactions.transaction_date: 2 years
       transactions.comparison_type: year
       transactions.selected_comparison: "-NULL"
-      customer_clustering_prediction.customer_segment: Emerging Millennials 🥑
+      customer_clustering_prediction.customer_segment: Emerging Millennials%
     sorts: [customer_clustering_prediction.customer_segment, transactions.selected_comparison
         desc]
     limit: 500
@@ -500,6 +594,26 @@
         expression: "${transactions.number_of_customers}/index(${transactions.number_of_customers},1)",
         value_format: !!null '', value_format_name: percent_0, _kind_hint: measure,
         _type_hint: number}]
+    color_application:
+      collection_id: f14810d2-98d7-42df-82d0-bc185a074e42
+      custom:
+        id: 7697335c-a9b7-5dd1-9525-d094e796d1b6
+        label: Custom
+        type: discrete
+        colors:
+        - "#5A30C2"
+        - "#b885f7"
+        - "#0d071c"
+        - "#d852db"
+        - "#4CAF50"
+        - "#8BC34A"
+        - "#CDDC39"
+        - "#FFEB3B"
+        - "#9E9E9E"
+        - "#607D8B"
+        - "#607D8B"
+      options:
+        steps: 5
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
@@ -518,6 +632,7 @@
     limit_displayed_rows: false
     legend_position: center
     point_style: none
+    series_colors: {}
     show_value_labels: false
     label_density: 25
     x_axis_scale: auto
@@ -540,10 +655,9 @@
     col: 0
     width: 19
     height: 2
-  - name: logo_generic_1
+  - name: <img src="https://i.imgur.com/DwmnjA2.png" height="75">
     type: text
-    title_text: <img src="https://payday.myrandf.com/hw2web/javax.faces.resource/2192912/en/login_logo.png.xhtml?ln=img"
-      height="75">
+    title_text: <img src="https://i.imgur.com/DwmnjA2.png" height="75">
     subtitle_text: ''
     body_text: ''
     row: 0
