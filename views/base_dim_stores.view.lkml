@@ -30,7 +30,7 @@ view: stores {
     type: string
     sql: ${TABLE}.NAME ;;
     link: {
-      url: "https://demo.looker.com/dashboards/WQKf302aPo8IEFvc2EkSQP?Date={{ _filters['transactions.date_comparison_filter'] | url_encode }}&Store={{value | encode_uri}}"
+      url: "https:///dashboards/WQKf302aPo8IEFvc2EkSQP?Date={{ _filters['transactions.date_comparison_filter'] | url_encode }}&Store={{value | encode_uri}}"
       label: "Drill down into {{rendered_value}}"
     }
     action: {
@@ -46,7 +46,7 @@ view: stores {
         type: textarea
         label: "Message"
         required: yes
-        default: "Hi, can you please check out what's going on in {{rendered_value}}? https://demo.looker.com/dashboards/WQKf302aPo8IEFvc2EkSQP?Store={{value | encode_uri}}"
+        default: "Hi, can you please check out what's going on in {{rendered_value}}? https:///dashboards/WQKf302aPo8IEFvc2EkSQP?Store={{value | encode_uri}}"
       }
     }
   }
@@ -131,7 +131,7 @@ view: stores {
         type: textarea
         label: "Message"
         required: yes
-        default: "Hi, can you please check out what's going on in {{rendered_value}}? https://demo.looker.com/dashboards/WQKf302aPo8IEFvc2EkSQP?Store={{value | encode_uri}}"
+        default: "Hi, can you please check out what's going on in {{rendered_value}}? https:///dashboards/WQKf302aPo8IEFvc2EkSQP?Store={{value | encode_uri}}"
       }
     }
   }
