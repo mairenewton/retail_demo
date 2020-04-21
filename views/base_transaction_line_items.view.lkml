@@ -14,7 +14,7 @@ view: transactions__line_items {
 
   dimension: sale_price {
     type: number
-    sql: ${TABLE}.sale_price ;;
+    sql: ${TABLE}.sale_price *.1;;
   }
 
   ##### DERIVED DIMENSIONS #####
@@ -60,7 +60,7 @@ view: transactions__line_items {
   ##### DATE COMPARISON MEASURES #####
 
   measure: sales_change {
-    view_label: "Date Comparison"
+    view_label: "Date Comparison - UPDATE"
     label: "Sales Change (%)"
     type: number
     sql: SUM(CASE WHEN ${transactions.selected_comparison} LIKE 'This%' THEN ${transactions__line_items.sale_price} ELSE NULL END) / NULLIF(SUM(CASE WHEN ${transactions.selected_comparison} LIKE 'Prior%' THEN ${transactions__line_items.sale_price} ELSE NULL END),0) -1;;

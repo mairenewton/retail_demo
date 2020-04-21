@@ -44,6 +44,11 @@ view: customer_facts {
     sql: ${TABLE}.customer_lifetime_sales ;;
   }
 
+  dimension: customer_over_5_lifetime {
+    type: yesno
+    sql: ${customer_lifetime_sales} > 5;;
+  }
+
   dimension: customer_lifetime_transactions {
     type: number
     group_label: "Customer Lifetime"

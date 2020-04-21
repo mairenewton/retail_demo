@@ -11,7 +11,7 @@ view: customers {
   dimension: address {
     type: string
     sql: ${TABLE}.address ;;
-    group_label: "Address Info"
+    group_label: "Address Info - NEW LABEL"
     link: {
       url: "https://demo.looker.com/dashboards-next/5541?Address=%22{{value | encode_uri}}%22&Date%20Range={{ _filters['transactions.transaction_date']}}"
       label: "Drill into this address"
@@ -29,6 +29,11 @@ view: customers {
   dimension: age {
     type: number
     sql: ${TABLE}.AGE ;;
+  }
+
+  dimension: over_21 {
+    type: yesno
+    sql: ${age} > 21 ;;
   }
 
   dimension: city {
