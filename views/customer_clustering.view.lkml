@@ -71,7 +71,7 @@ view: customer_clustering_prediction {
         WHEN customer_clustering_prediction_centroid_ranks.age_rank = 1 THEN 'Emerging Millennials 🥑'
         WHEN customer_clustering_prediction_centroid_ranks.inverse_age_rank = 1 THEN 'Affluent Retirees 👴'
         WHEN (customer_clustering_prediction_centroid_ranks.average_basket_size_rank = 1 AND customer_clustering_prediction_centroid_ranks.age_rank <> 1 AND customer_clustering_prediction_centroid_ranks.inverse_age_rank <> 1)
-          OR (customer_clustering_prediction_centroid_ranks.average_total_sales_rank = 1 AND customer_clustering_prediction_centroid_ranks.age_rank <> 1 AND customer_clustering_prediction_centroid_ranks.inverse_age_rank <> 1)
+          -- OR (customer_clustering_prediction_centroid_ranks.average_total_sales_rank = 1 AND customer_clustering_prediction_centroid_ranks.age_rank <> 1 AND customer_clustering_prediction_centroid_ranks.inverse_age_rank <> 1)
           THEN 'Regular Gen Xers 🛒'
         ELSE 'One-off locals 🏪'
       END AS customer_segment
