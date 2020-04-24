@@ -44,7 +44,8 @@ view: transactions {
       month,
       quarter,
       year,
-      week_of_year
+      week_of_year,
+      month_num
     ]
     sql: ${TABLE}.transaction_timestamp ;;
   }

@@ -1,5 +1,5 @@
 connection: "lookerdata"
-label: "3) Retail"
+label: "4) Retail"
 
 include: "/views/**/*.view" # include all the views
 # include: "/dashboards/*.dashboard.lookml" # include all the dashboards
@@ -57,7 +57,7 @@ explore: transactions {
   join: store_weather {
     relationship: many_to_one
     sql_on: ${transactions.transaction_date} = ${store_weather.weather_date}
-    AND ${transactions.store_id} = ${store_weather.store_id};;
+      AND ${transactions.store_id} = ${store_weather.store_id};;
   }
 
   join: customer_clustering_prediction {

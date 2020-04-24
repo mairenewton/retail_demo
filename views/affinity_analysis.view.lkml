@@ -229,38 +229,44 @@ view: order_purchase_affinity {
   ##### Dimensions #####
 
   dimension: product_a {
+    group_label: "Product A"
     type: string
     sql: ${TABLE}.product_a ;;
     link: {
       label: "Focus on {{rendered_value}}"
       #### TO DO: Replace "/3" with id of the [...] dashboards
-      url: "/dashboards-next/5539?Focus%20Product={{ value | encode_uri }}&Product%20Level={{ _filters['order_items_base.product_level'] | url_encode }}&Analysis%20Timeframe={{ _filters['order_purchase_affinity.affinity_timeframe'] | url_encode }}&Store%20Number={{ _filters['order_purchase_affinity.store_number'] | url_encode }}&Focus%20Category={{ _filters['order_purchase_affinity.product_a_category'] | url_encode }}&Minimum%20Purchase%20Frequency={{ _filters['order_purchase_affinity.product_a_order_frequency'] | url_encode }}"
+      url: "/dashboards/Ipxk660N88jaUxsHolxRts?Focus%20Product={{ value | encode_uri }}&Product%20Level={{ _filters['order_items_base.product_level'] | url_encode }}&Analysis%20Timeframe={{ _filters['order_purchase_affinity.affinity_timeframe'] | url_encode }}&Store%20Number={{ _filters['order_purchase_affinity.store_number'] | url_encode }}&Focus%20Category={{ _filters['order_purchase_affinity.product_a_category'] | url_encode }}&Minimum%20Purchase%20Frequency={{ _filters['order_purchase_affinity.product_a_order_frequency'] | url_encode }}"
     }
   }
 
   dimension: product_a_image {
+    group_label: "Product A"
     type: string
     sql: ${product_a} ;;
     html: <img src="https://us-central1-looker-retail-demo-1.cloudfunctions.net/imageSearch?q={{rendered_value | encode_uri }}" style="height: 100px; max-width: 150px;" /> ;;
   }
 
   dimension: product_b {
+    group_label: "Product B"
     type: string
     sql: ${TABLE}.product_b ;;
   }
 
   dimension: product_b_image {
+    group_label: "Product B"
     type: string
     sql: ${product_b} ;;
     html: <img src="https://us-central1-looker-retail-demo-1.cloudfunctions.net/imageSearch?q={{rendered_value | encode_uri }}" style="height: 100px; max-width: 150px;" /> ;;
   }
 
   dimension: product_a_category {
+    group_label: "Product A"
     type: string
     sql: ${TABLE}.product_a_category ;;
   }
 
   dimension: product_b_category {
+    group_label: "Product B"
     type: string
     sql: ${TABLE}.product_b_category ;;
   }
@@ -273,6 +279,7 @@ view: order_purchase_affinity {
   }
 
   dimension: product_a_order_count {
+    group_label: "Product A"
     description: "Total number of orders with product A in them, during specified timeframe"
     type: number
     sql: ${TABLE}.product_a_order_count ;;
@@ -280,6 +287,7 @@ view: order_purchase_affinity {
   }
 
   dimension: product_b_order_count {
+    group_label: "Product B"
     description: "Total number of orders with product B in them, during specified timeframe"
     type: number
     sql: ${TABLE}.product_b_order_count ;;
@@ -288,6 +296,7 @@ view: order_purchase_affinity {
 
   #  Frequencies
   dimension: product_a_order_frequency {
+    group_label: "Product A"
     description: "How frequently orders include product A as a percent of total orders"
     type: number
     sql: 1.0*${product_a_order_count}/${total_orders.count} ;;
@@ -295,6 +304,7 @@ view: order_purchase_affinity {
   }
 
   dimension: product_b_order_frequency {
+    group_label: "Product B"
     description: "How frequently orders include product B as a percent of total orders"
     type: number
     sql: 1.0*${product_b_order_count}/${total_orders.count} ;;
@@ -332,6 +342,7 @@ view: order_purchase_affinity {
   }
 
   dimension: product_a_percent_purchased_alone {
+    group_label: "Product A"
     description: "The % of times product A is purchased alone, over all transactions containing product A"
     type: number
     sql: 1.0*${product_a_count_purchased_alone}/(CASE WHEN ${product_a_order_count}=0 THEN NULL ELSE ${product_a_order_count} END);;
@@ -339,12 +350,14 @@ view: order_purchase_affinity {
   }
 
   dimension: product_a_count_orders_by_exclusive_customers {
+    group_label: "Product A"
     type: number
     hidden: yes
     sql: ${TABLE}.product_a_count_orders_by_exclusive_customers ;;
   }
 
   dimension: product_a_percent_customer_exclusivity{
+    group_label: "Product A"
     description: "% of times product A is purchased by customers who only bought product A in the timeframe"
     type: number
     sql: 1.0*${product_a_count_orders_by_exclusive_customers}/(CASE WHEN ${product_a_order_count}=0 THEN NULL ELSE ${product_a_order_count} END) ;;
@@ -358,6 +371,7 @@ view: order_purchase_affinity {
   }
 
   dimension: product_a_percent_purchased_by_loyalty_customer {
+    group_label: "Product A"
     description: "The % of times product A is purchased by a customer with a registered loyalty number"
     type: number
     sql: 1.0*${product_a_count_purchased_by_loyalty_customer}/(CASE WHEN ${product_a_order_count}=0 THEN NULL ELSE ${product_a_order_count} END);;
@@ -371,6 +385,7 @@ view: order_purchase_affinity {
   }
 
   dimension: product_b_percent_purchased_alone {
+    group_label: "Product B"
     description: "The % of times product B is purchased alone, over all transactions containing product B"
     type: number
     sql: 1.0*${product_b_count_purchased_alone}/(CASE WHEN ${product_b_order_count}=0 THEN NULL ELSE ${product_b_order_count} END);;
@@ -384,6 +399,7 @@ view: order_purchase_affinity {
   }
 
   dimension: product_b_percent_customer_exclusivity{
+    group_label: "Product B"
     description: "% of times product B is purchased by customers who only bought product B in the timeframe"
     type: number
     sql: 1.0*${product_b_count_orders_by_exclusive_customers}/(CASE WHEN ${product_b_order_count}=0 THEN NULL ELSE ${product_b_order_count} END) ;;
@@ -397,6 +413,7 @@ view: order_purchase_affinity {
   }
 
   dimension: product_b_percent_purchased_by_loyalty_customer {
+    group_label: "Product B"
     description: "The % of times product B is purchased by a customer with a registered loyalty number"
     type: number
     sql: 1.0*${product_b_count_purchased_by_loyalty_customer}/(CASE WHEN ${product_b_order_count}=0 THEN NULL ELSE ${product_b_order_count} END);;
