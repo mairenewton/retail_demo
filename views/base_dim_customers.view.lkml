@@ -23,7 +23,7 @@ view: customers {
     type: string
     group_label: "Address Info"
     sql: ${address} ;;
-    html: <img src="https://maps.googleapis.com/maps/api/streetview?size=700x400&location={{value | encode_uri}}&fov=120&key=AIzaSyCpNqLNfBtd1iw0UdeKwv9kORpCFRhNG4o" ;;
+    html: <img src="https://maps.googleapis.com/maps/api/streetview?size=700x400&location={{value | encode_uri}}&fov=120&key=AIzaSyD7BvCbKqjStBl7r6AmDu1p8yGF-IxtFLs" ;;
   }
 
   dimension: age {
