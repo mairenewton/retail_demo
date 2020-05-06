@@ -19,7 +19,7 @@ view: products {
   dimension: category {
     type: string
     sql: ${TABLE}.CATEGORY ;;
-    drill_fields: [base_dim_stores.name,brand]
+    drill_fields: [stores.name,brand]
     link: {
       label: "{{value}} Item Dynamics"
       icon_url: "https://i.imgur.com/W4tVGrj.png"
