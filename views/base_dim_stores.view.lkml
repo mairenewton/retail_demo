@@ -23,6 +23,7 @@ view: stores {
   }
 
   dimension: name {
+    drill_fields: [base_dim_products.category]
     label: "Store Name"
     type: string
     sql: ${TABLE}.NAME ;;
